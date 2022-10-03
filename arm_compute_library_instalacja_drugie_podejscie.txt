@@ -1,0 +1,17 @@
+# Install dependencies (g++, git and scons)
+sudo apt-get install g++ git scons 
+
+git clone https://github.com/Arm-software/ComputeLibrary.git
+cd ComputeLibrary
+git tag -l
+git checkout v19.02
+
+scons Werror=1 debug=0 asserts=0 arch=armv7a -mfpu=neon neon=1 opencl=0 examples=1 build=native -j2
+
+sudo cp -r arm_compute /usr/include/
+sudo cp -r support /usr/include/
+sudo cp -r include/* /usr/include/
+sudo cp build/libarm_compute.so /usr/lib/
+sudo cp build/libarm_compute_core.so /usr/lib/
+
+
